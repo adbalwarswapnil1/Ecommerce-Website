@@ -1,0 +1,325 @@
+<div class="ml-5 mr-5 mt-2 d-flex">
+  <div style="width: 70%;" class="mr-1">
+    <div id="accordion">
+      <div class="card mb-2">
+        <div class="card-header bg-white" id="headingOne">
+          <div class="">
+            <h5 class="mb-0">
+              <span class="badge badge-secondary">1</span>
+              <button class="btn btn-link collapsed text-muted" style="text-decoration: none; color: black; font-size: medium;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Account
+              </button>
+            </h5>
+          </div>
+          <div class="mt-2" style="margin-left: 30px;">
+            <h6 class="">{{userDetails.firstName}} {{userDetails.lastName}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-2">
+        <div class="card-header bg-white" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <h5 class="mb-0">
+            <span class="badge badge-secondary">2</span>
+            <button class="btn btn-link dropdown-toggle text-muted" style="text-decoration: none; color: black; font-size: medium;" >
+              Delivery Address
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <div class="">
+              <p>{{userDetails.address}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-2">
+        <div class="card-header bg-white" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <h5 class="mb-0">
+            <span class="badge badge-secondary">3</span>
+            <button class="btn btn-link collapsed dropdown-toggle text-muted" style="text-decoration: none; color: black; font-size: medium;" >
+              Order Summary
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <!-- From Cart -->
+          <div class="card-body" *ngIf="!productId">
+            <div *ngFor="let product of products">
+              <div class="mt-2 ml-2 mr-2 pt-2 pb-2 border" style="display: flex;">
+                <div>
+                  <div class="image-div">
+                    <img [src]="product.imageUrl" class="rounded">
+                  </div>
+                </div>
+                <div class="product-details">
+                  <div>
+                    <h5 class="card-text text-muted">{{product.brandName}}</h5>
+                    <p class="card-title">{{product.description}}</p>
+                    <div class="d-flex">
+                      <p class="card-text"><b>{{product.price-(product.price*(product.discountPercentage/100))| currency:"INR"}}</b></p>
+                      <p class="card-text ml-2 text-muted"><s>{{product.price | currency:"INR"}}</s></p>
+                      <p class="card-text ml-2" style="color: #388e3c;"><small><b>{{product.discountPercentage}}% off</b></small></p>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-5">
+                    <div class="d-flex mt-2">
+                      <a *ngIf="product.quantity>1" style="color: black; text-decoration: none; cursor:pointer;" (click)="onDecreaseQuantityClick(product)">-</a>
+                      <input type="text" class="ml-2 mr-2" style="width: 40px; height: 25px; text-align: center;" [value]="product.quantity">
+                      <a style="color: black; text-decoration: none; cursor: pointer;" (click)="onIncreaseQuantityClick(product)">+</a>
+                    </div>
+                    <div>
+                      <button class="btn" (click)="onRemoveCartItemClick(product.id)">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="ml-4">
+                  Delivery by 20 march
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Buy Now -->
+          <div class="card-body" *ngIf="productId">
+            <div *ngFor="let product of products">
+              <div class="mt-2 ml-2 mr-2 pt-2 pb-2 border" style="display: flex;">
+                <div>
+                  <div class="image-div">
+                    <img [src]="product.imageUrl" class="rounded">
+                  </div>
+                </div>
+                <div class="product-details">
+                  <div>
+                    <h5 class="card-text text-muted">{{product.brandName}}</h5>
+                    <p class="card-title">{{product.description}}</p>
+                    <div class="d-flex">
+                      <p class="card-text"><b>{{product.price-(product.price*(product.discountPercentage/100))| currency:"INR"}}</b></p>
+                      <p class="card-text ml-2 text-muted"><s>{{product.price | currency:"INR"}}</s></p>
+                      <p class="card-text ml-2" style="color: #388e3c;"><small><b>{{product.discountPercentage}}% off</b></small></p>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-5">
+                    <div class="d-flex mt-2">
+                      <a *ngIf="product.quantity>1" style="color: black; text-decoration: none; cursor:pointer;" (click)="onDecreaseQuantityClickBuyNow(product)">-</a>
+                      <input type="text" class="ml-2 mr-2" style="width: 40px; height: 25px; text-align: center;" [value]="product.quantity">
+                      <a style="color: black; text-decoration: none; cursor: pointer;" (click)="onIncreaseQuantityClickBuyNow(product)">+</a>
+                    </div>
+                    <!-- <div>
+                      <button class="btn" (click)="onRemoveCartItemClick(product.id)">Remove</button>
+                    </div> -->
+                  </div>
+                </div>
+                <!-- <div class="ml-4">
+                  Delivery by 20 march
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-2">
+        <div class="card-header bg-white" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <h5 class="mb-0">
+            <span class="badge badge-secondary">4</span>
+            <button class="btn btn-link collapsed dropdown-toggle text-muted" style="text-decoration: none; color: black; font-size: medium;" >
+              Payment Options
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+          <!-- cart items -->
+          <div class="card-body" *ngIf="!productId">
+            <form class="ml-1" #paymentOption="ngForm">
+              <div>
+                <div>
+                  <input type="radio" id="upi" name="paymnetOption" value="UPI" #upi ngModel>
+                  <label for="upi" class="ml-3">UPI</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='UPI'">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-dark" (click)="onPayClick()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">PAY {{total-discount | currency:"INR"}}</button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div>
+                  <input type="radio" id="card" name="paymnetOption" value="CARD" ngModel>
+                  <label for="card" class="ml-3">Card</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='CARD'">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-dark" (click)="onPayClick()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">PAY {{total-discount | currency:"INR"}}</button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div>
+                  <input type="radio" id="cod" name="paymnetOption" value="COD" ngModel>
+                  <label for="cod" class="ml-3">Cash on delivery</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='COD'">
+                  <div class="d-flex justify-content-between" style="margin-left: 29px;">
+                    <div>
+                      <p style="margin-top: 5px;">Pay {{total-discount | currency:"INR"}} at delivery time.</p>
+                    </div>
+                    <div>
+                      <button class="btn btn-dark" (click)="onPayClick()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Confirm Order</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- {{paymentOption.value!['paymnetOption']}} -->
+          </div>
+
+          <!-- Buy now -->
+          <div class="card-body" *ngIf="productId">
+            <form class="ml-1" #paymentOption="ngForm">
+              <div>
+                <div>
+                  <input type="radio" id="upi" name="paymnetOption" value="UPI" #upi ngModel>
+                  <label for="upi" class="ml-3">UPI</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='UPI'">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-dark" (click)="onPayClickBuyNow()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">PAY {{total-discount | currency:"INR"}}</button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div>
+                  <input type="radio" id="card" name="paymnetOption" value="CARD" ngModel>
+                  <label for="card" class="ml-3">Card</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='CARD'">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-dark" (click)="onPayClickBuyNow()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">PAY {{total-discount | currency:"INR"}}</button>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div>
+                  <input type="radio" id="cod" name="paymnetOption" value="COD" ngModel>
+                  <label for="cod" class="ml-3">Cash on delivery</label>
+                </div>
+                <div *ngIf="paymentOption.value!['paymnetOption']=='COD'">
+                  <div class="d-flex justify-content-between" style="margin-left: 29px;">
+                    <div>
+                      <p style="margin-top: 5px;">PAY {{total-discount | currency:"INR"}} at delivery time.</p>
+                    </div>
+                    <div>
+                      <button class="btn btn-dark" (click)="onPayClickBuyNow()" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">Confirm Order</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- {{paymentOption.value!['paymnetOption']}} -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width: 30%;" class="ml-1">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-muted">PRICE DETAILS</h5>
+        <div>
+          <hr class="mb-4">
+        </div>
+        <div>
+          <div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle">Price</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle">{{total | currency:"INR"}}</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle" >Discount</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle" style="color: #388e3c;">-{{discount | currency:"INR"}}</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle">Delivery Charges</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle" style="color: #388e3c;">{{deliveryCharges}}</h6>
+              </div>
+            </div>
+          </div>
+          <div>
+            <hr class="mb-4">
+          </div>
+          <div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h5 class="card-title">Total Payable</h5>
+              </div>
+              <div>
+                <h5 class="card-title">{{total-discount | currency:"INR"}}</h5>
+              </div>
+            </div>
+          </div>
+          <div>
+            <hr class="mb-4">
+          </div>
+          <div>
+            <div>
+              <h6 class="card-text" style="color: #388e3c;">You will save {{discount | currency:"INR"}} on this order.</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary"  >
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content rounded">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <img class="zoom-in-out-box" src="../../../../assets/images/green tick.png" alt="">
+        </div>
+        <div class="d-flex justify-content-center">
+          <h4>Your order placed successfully.</h4>
+        </div>
+        <div class="d-flex justify-content-center">
+          <p>You saved {{discount | currency:"INR"}} on this order.</p>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-dark" data-dismiss="modal" [routerLink]="['/']">OK</button>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>

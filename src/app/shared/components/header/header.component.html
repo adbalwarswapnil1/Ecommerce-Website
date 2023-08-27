@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+  <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="../../../../assets/images/pngegg (2).png" width="30" height="30" class="d-inline-block align-top"
+      alt="" />
+    <b class="brand-name">The Fashion Factory</b>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item" *ngIf="!isUserLoggedIn">
+        <a class="nav-link text-white" routerLink="/user/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="isUserLoggedIn">
+        <a class="nav-link dropdown-toggle text-white" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{loggedInUserDetails.firstName}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item d-flex" [routerLink]="['/account']"><span class="mr-2"><mat-icon>account_circle</mat-icon></span>My Profile</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex" [routerLink]="['/account/orders']"><span class="mr-2"><mat-icon>receipt</mat-icon></span>Orders</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex" [routerLink]="['/account/wishlist']"><span class="mr-2"><mat-icon>favorite</mat-icon></span>Wishlist</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex" [routerLink]="['/']"><span class="mr-2"><mat-icon>card_giftcard</mat-icon></span>Rewards</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex" style="cursor: pointer;" (click)="onLogoutClick()">Logout</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" style="cursor: pointer;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item d-flex" routerLink="/"><span class="mr-2"><mat-icon>notifications</mat-icon></span>Notification Preferences</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex" [routerLink]="['/']"><span class="mr-2"><mat-icon>contact_support</mat-icon></span>24x7 Customer Care</a>
+        </div>
+      </li>
+    </ul>
+
+    <div style="display: flex">
+        <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
+          <div class="input-group">
+            <input class="form-control border rounded-pill" type="text" placeholder="Search" formControlName="search" />
+            <span class="input-group-append">
+              <button class="btn bg-white border rounded-pill ms-n3" type="submit" (click)="onSearchClick()">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 25px;">
+          <li class="nav-item">
+            <a style="display: flex" class="nav-link text-white" [routerLink]="['/account/cart']" routerLinkActive="router-link-active" >
+              <span style="margin-right: 10px">
+                <mat-icon [matBadge]="numberOfCartProducts" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
+              </span>
+              Cart
+            </a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>

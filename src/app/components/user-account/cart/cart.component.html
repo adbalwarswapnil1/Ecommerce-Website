@@ -1,0 +1,115 @@
+<div class="cart-div mt-2" *ngIf="products.length>0">
+  <div style="width: 70%;" class="border mr-2">
+    <div class="d-flex justify-content-between ml-2 mr-2 mt-2 pt-2 pb-2 border">
+      <div class="ml-2">
+        <p>{{userAddress}}</p>
+      </div>
+      <div class="mr-2">
+        <button class="btn btn-primary">enter your pin code</button>
+      </div>
+    </div>
+    <div *ngFor="let product of products">
+      <div class="mt-2 ml-2 mr-2 pt-2 pb-2 border" style="display: flex;">
+        <div class="ml-2">
+          <div class="image-div">
+            <img [src]="product.imageUrl" class="rounded">
+          </div>
+        </div>
+        <div class="product-details">
+          <div>
+            <h5 class="card-text text-muted">{{product.brandName}}</h5>
+            <p class="card-title">{{product.description}}</p>
+            <div class="d-flex">
+              <p class="card-text"><b>{{product.price-(product.price*(product.discountPercentage/100))| currency:"INR"}}</b></p>
+              <p class="card-text ml-2 text-muted"><s>{{product.price | currency:"INR"}}</s></p>
+              <p class="card-text ml-2" style="color: #388e3c;"><small><b>{{product.discountPercentage}}% off</b></small></p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-5">
+            <div class="d-flex mt-2">
+              <a *ngIf="product.quantity>1" style="color: black; text-decoration: none; cursor:pointer;" (click)="onDecreaseQuantityClick(product)">-</a>
+              <input type="text" class="ml-2 mr-2" style="width: 40px; height: 25px; text-align: center;" [value]="product.quantity">
+              <a style="color: black; text-decoration: none; cursor: pointer;" (click)="onIncreaseQuantityClick(product)">+</a>
+            </div>
+            <div>
+              <button class="btn" (click)="onRemoveCartItemClick(product.id)">Remove</button>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="ml-4">
+          Delivery by 20 march
+        </div> -->
+      </div>
+    </div>
+    <div class="d-flex justify-content-end ml-2 mr-2 mt-2 mb-2 pt-2 pb-2 border">
+      <button class="btn btn-primary mr-2" [routerLink]="['/account/checkout']">Place Order</button>
+    </div>
+  </div>
+  <div style="width: 30%;">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-muted">PRICE DETAILS</h5>
+        <div>
+          <hr class="mb-4">
+        </div>
+        <div>
+          <div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle">Price</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle">{{total | currency:"INR"}}</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle" >Discount</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle" style="color: #388e3c;">-{{discount | currency:"INR"}}</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h6 class="card-subtitle">Delivery Charges</h6>
+              </div>
+              <div>
+                <h6 class="card-subtitle" style="color: #388e3c;">{{deliveryCharges}}</h6>
+              </div>
+            </div>
+          </div>
+          <div>
+            <hr class="mb-4">
+          </div>
+          <div>
+            <div class="d-flex justify-content-between mb-4">
+              <div>
+                <h5 class="card-title">Total Payable</h5>
+              </div>
+              <div>
+                <h5 class="card-title">{{total-discount | currency:"INR"}}</h5>
+              </div>
+            </div>
+          </div>
+          <div>
+            <hr class="mb-4">
+          </div>
+          <div>
+            <div>
+              <h6 class="card-text" style="color: #388e3c;">You will save {{discount | currency:"INR"}} on this order.</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="products.length==0" class="empty-cart">
+  <div class="d-flex flex-column align-items-center">
+    <img src="https://www.freepnglogos.com/uploads/shopping-cart-png/shopping-cart-svg-png-icon-download-28.png" alt="">
+    <h3 class="mt-5">Your Cart is Empty!</h3>
+    <h4>Add something to make me happy :)</h4>
+    <button class="btn btn-primary mt-5" [routerLink]="['/products']">Shop Now</button>
+  </div>
+</div>

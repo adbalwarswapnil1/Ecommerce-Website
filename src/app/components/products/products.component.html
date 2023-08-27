@@ -1,0 +1,34 @@
+<div>
+  <div  style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-right: 2px;" class="mt-2">
+    <div class="card mt-2" style="width: 16rem; margin-right: 10px;" *ngFor="let product of products | paginate: { itemsPerPage: 5, currentPage: p }">
+      <div class="image-div mb-2 mt-2">
+        <a [routerLink]="['/product',product.id]">
+        <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+        </a>
+      </div>
+      <div class="card-body">
+        <mat-icon style="float: right;" *ngIf="favoriteProducts" (click)="onFavoriteClick(product.id)" [style]="false || favoriteProducts.includes(product.id)?'color:red;':'color:currentColor;'">{{ favoriteProducts.includes(product.id) || false ?'favorite':'favorite_border'}}</mat-icon>
+        <h5 class="card-title text-muted">{{product.brandName}}</h5>
+        <p class="card-text">{{product.description}}</p>
+        <div class="d-flex">
+          <p class="card-text"><b>{{product.price-(product.price*(product.discountPercentage/100))| currency:"INR"}}</b></p>
+          <p class="card-text ml-2 text-muted"><s>{{product.price | currency:"INR"}}</s></p>
+          <p class="card-text ml-2" style="color: #388e3c;"><small><b>{{product.discountPercentage}}% off</b></small></p>
+        </div>
+        <!-- <div *ngIf="product.quantity<=5">
+          Only {{product.quantity}} left.
+        </div> -->
+
+        <div class="button-div">
+          <a class="btn btn-light border mr-1" style="cursor: pointer;" (click)="onAddtoCartClick(product.id)"> ADD TO CART </a>
+          <a class="btn btn-primary ml-1" [routerLink]="['/account/checkout']" [queryParams]="{productId:product.id}">BUY NOW </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 50px;">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+
+

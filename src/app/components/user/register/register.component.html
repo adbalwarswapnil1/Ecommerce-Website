@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center pt-5 pb-5">
+  <form  [formGroup]="signUpForm" class="rounded">
+      <!-- <div class="form-group mb-2">
+          <img src="https://www.persistent.com/wp-content/uploads/2021/04/Logo-variants-Primary-vertical.jpg"
+              alt="Avatar" style="width:200px">
+      </div> -->
+      <div class="form-group mb-2">
+          <label>First Name:</label>
+          <input type="text" class="form-control" placeholder="Enter First Name" formControlName="firstName" [ngClass]="{
+              'is-invalid': signUpForm.get('firstName')?.invalid && (signUpForm.get('firstName')?.dirty || signUpForm.get('firstName')?.touched),
+              'is-valid': signUpForm.get('firstName')?.valid && (signUpForm.get('firstName')?.dirty || signUpForm.get('firstName')?.touched) }">
+
+          <div *ngIf="signUpForm.get('firstName')?.invalid && (signUpForm.get('firstName')?.dirty || signUpForm.get('firstName')?.touched)" style="width: 250px;">
+              <span *ngIf="signUpForm.get('firstName')?.errors!['required']">First name required.</span>
+              <span *ngIf="signUpForm.get('firstName')?.errors!['minlength']">Minimum lenght should be 3.</span>
+          </div>
+      </div>
+      <div class="form-group mb-2">
+        <label>Last Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="lastName" [ngClass]="{
+            'is-invalid': signUpForm.get('lastName')?.invalid && (signUpForm.get('fullName')?.dirty || signUpForm.get('lastName')?.touched),
+            'is-valid': signUpForm.get('lastName')?.valid && (signUpForm.get('lastName')?.dirty || signUpForm.get('lastName')?.touched) }">
+
+        <div *ngIf="signUpForm.get('lastName')?.invalid && (signUpForm.get('lastName')?.dirty || signUpForm.get('lastName')?.touched)" style="width: 250px;">
+            <span *ngIf="signUpForm.get('lastName')?.errors!['required']">Last name required.</span>
+            <span *ngIf="signUpForm.get('lastName')?.errors!['minlength']">Minimum lenght should be 3.</span>
+        </div>
+    </div>
+      <div class="form-group mb-2">
+          <label>Username:</label>
+          <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName" [ngClass]="{
+              'is-invalid': signUpForm.get('userName')?.invalid && (signUpForm.get('userName')?.dirty || signUpForm.get('userName')?.touched),
+              'is-valid': signUpForm.get('userName')?.valid && (signUpForm.get('userName')?.dirty || signUpForm.get('userName')?.touched) }">
+
+          <div *ngIf="signUpForm.get('userName')?.invalid && (signUpForm.get('userName')?.dirty || signUpForm.get('userName')?.touched)" style="width: 250px;">
+              <span *ngIf="signUpForm.get('userName')?.errors!['required']">Username required.</span>
+              <span *ngIf="signUpForm.get('userName')?.errors!['minlength']">Minimum lenght should be 6.</span>
+          </div>
+      </div>
+      <div class="form-group mb-2">
+          <label>Password:</label>
+          <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{
+              'is-invalid': signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched),
+              'is-valid': signUpForm.get('password')?.valid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched) }">
+
+          <div *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)" style="width: 250px;">
+              <span *ngIf="signUpForm.get('password')?.errors!['required']">Password required.</span>
+              <span *ngIf="signUpForm.get('password')?.errors!['minlength']">Minimum lenght should be 6.</span>
+          </div>
+      </div>
+      <div class="form-group mb-2">
+          <label>Phone:</label>
+          <input type="text" class="form-control" placeholder="Phone Number" formControlName="phone" [ngClass]="{
+              'is-invalid': signUpForm.get('phone')?.invalid && (signUpForm.get('phone')?.dirty || signUpForm.get('phone')?.touched),
+              'is-valid': signUpForm.get('phone')?.valid && (signUpForm.get('phone')?.dirty || signUpForm.get('phone')?.touched) }">
+
+          <div *ngIf="signUpForm.get('phone')?.invalid && (signUpForm.get('phone')?.dirty || signUpForm.get('phone')?.touched)" style="width: 250px;">
+              <span *ngIf="signUpForm.get('phone')?.errors!['required']">Phone required.</span>
+              <span *ngIf="signUpForm.get('phone')?.errors!['minlength']">Only 10 digit number is allowed.</span>
+              <span *ngIf="signUpForm.get('phone')?.errors!['maxlength']">Only 10 digit number is allowed.</span>
+              <div>
+                <span *ngIf="signUpForm.get('phone')?.errors!['pattern']">Only numbers are allowed.</span>
+              </div>
+          </div>
+      </div>
+      <div class="form-group mb-2">
+        <label>Address:</label>
+        <input type="text" class="form-control" placeholder="Address" formControlName="address" [ngClass]="{
+            'is-invalid': signUpForm.get('address')?.invalid && (signUpForm.get('address')?.dirty || signUpForm.get('address')?.touched),
+            'is-valid': signUpForm.get('address')?.valid && (signUpForm.get('address')?.dirty || signUpForm.get('address')?.touched) }">
+
+        <div *ngIf="signUpForm.get('address')?.invalid && (signUpForm.get('address')?.dirty || signUpForm.get('address')?.touched)" style="width: 250px;">
+            <span *ngIf="signUpForm.get('address')?.errors!['required']">Address required.</span>
+        </div>
+    </div>
+      <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" formControlName="checkBox" [ngClass]="{
+              'is-invalid': signUpForm.get('checkBox')?.invalid && (signUpForm.get('checkBox')?.dirty || signUpForm.get('checkBox')?.touched),
+              'is-valid': signUpForm.get('checkBox')?.valid && (signUpForm.get('checkBox')?.dirty || signUpForm.get('checkBox')?.touched) }"/>
+
+          <label class="form-check-label">Agree terms & conditions.</label>
+          <div *ngIf="signUpForm.get('checkBox')?.invalid && (signUpForm.get('checkBox')?.dirty || signUpForm.get('checkBox')?.touched)" style="width: 250px;">
+              <span *ngIf="signUpForm.get('checkBox')?.errors!['required']">Please agree T&C.</span>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center">
+
+        <button type="submit" class="btn btn-dark" [disabled]="signUpForm.invalid" (click)="onSignUpClick(signUpForm.value)">SIGN UP </button>
+
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <p>have account? <a routerLink="/user/login">Login</a></p>
+    </div>
+  </form>
+</div>
+
+<!-- <h1>{{signUpForm.value | json}}</h1> -->

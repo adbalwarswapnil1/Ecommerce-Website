@@ -1,0 +1,36 @@
+.cart-div{
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 10px;
+}
+
+.image-div{
+  margin: 2px 2px;
+  >img{
+    height: 200px;
+  }
+}
+
+.button-div{
+
+  margin: 10px 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-details{
+  margin-left: 20px;
+}
+
+.empty-cart{
+  display: flex;
+  justify-content: center;
+  padding: 100px 0px;
+  div>img{
+    width: 250px;
+    //margin-right: 50px;
+  }
+  div>h3{
+    // margin-left: 50px;
+  }
+}

@@ -1,0 +1,36 @@
+<div>
+  <div *ngIf="product" class="mt-2 ml-2 mr-2 border" style="display: flex;">
+    <div>
+      <div class="image-div">
+        <img [src]="product.imageUrl" class="rounded">
+      </div>
+      <div class="button-div" style="display: flex;">
+        <a class="btn btn-light border" style="cursor: pointer;" (click)="onAddtoCartClick(product.id)"> ADD TO CART </a>
+        <a href="#" class="btn btn-primary" [routerLink]="['/account/checkout']" [queryParams]="{productId:product.id}" >BUY NOW </a>
+      </div>
+    </div>
+    <div class="product-details">
+      <h5 class="card-title text-muted">{{product.brandName}}</h5>
+        <p class="card-text">{{product.description}}</p>
+        <div class="d-flex">
+          <p class="card-text"><b>{{product.price-(product.price*(product.discountPercentage/100))| currency:"INR"}}</b></p>
+          <p class="card-text ml-2 text-muted"><s>{{product.price | currency:"INR"}}</s></p>
+          <p class="card-text ml-2" style="color: #388e3c;"><small><b>{{product.discountPercentage}}% off</b></small></p>
+        </div>
+        <div *ngIf="product.quantity<=5" style="color: rgb(199, 0, 85);">
+          <small>Only {{product.quantity}} left.</small>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="card mt-2 ml-2" style="width: 18rem;">
+      <div>
+        <a href="#" class="">
+          <img class="card-img-top" [src]="item.url" alt="Card image cap">
+        </a>
+        <button class="btn btn-primary">djhsj</button>
+      </div>
+    </div> -->
+
+</div>

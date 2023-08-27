@@ -1,0 +1,17 @@
+.image-div{
+  margin: 2px 2px;
+  >img{
+    height: 300px;
+  }
+}
+
+.button-div{
+
+  margin: 10px 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-details{
+  margin-left: 20px;
+}

@@ -1,0 +1,41 @@
+
+<div class="d-flex justify-content-center pt-5 pb-5 mt-2">
+  <form [formGroup]="loginForm" class="rounded">
+      <!-- <div class="form-group mb-2">
+          <img src="https://www.persistent.com/wp-content/uploads/2021/04/Logo-variants-Primary-vertical.jpg"
+              alt="Avatar" style="width:200px">
+      </div> -->
+      <div class="form-group mb-2">
+          <label>Username:</label>
+          <input type="text" class="form-control" placeholder="Enter Username" formControlName="userName" [ngClass]="{
+              'is-invalid': loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched),
+              'is-valid': loginForm.get('userName')?.valid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched) }">
+
+          <div *ngIf="loginForm.get('userName')?.invalid && (loginForm.get('userName')?.dirty || loginForm.get('userName')?.touched)" style="width: 250px;">
+              <span *ngIf="loginForm.get('userName')?.errors!['required']">Username required.</span>
+              <span *ngIf="loginForm.get('userName')?.errors!['minlength']">Minimum length is 6.</span>
+          </div>
+      </div>
+      <div class="form-group mb-3">
+          <label>Password:</label>
+          <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{
+              'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched),
+              'is-valid': loginForm.get('password')?.valid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched) }">
+
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" style="width: 250px;">
+              <span *ngIf="loginForm.get('password')?.errors!['required']">Password required</span>
+              <span *ngIf="loginForm.get('password')?.errors!['minlength']">Minimum length is 6.</span>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center mb-1">
+          <button type="submit" class="btn btn-dark" [disabled]="loginForm.invalid" (click)="onLoginClick(loginForm.get('userName')?.value,loginForm.get('password')?.value)">LOGIN</button>
+      </div>
+      <div class="d-flex justify-content-center mb-3 text-danger">
+          <span *ngIf="message">{{message}}</span>
+      </div>
+      <div class="d-flex justify-content-center">
+          <p>Don't have account? <a routerLink="/user/register">Register</a></p>
+      </div>
+  </form>
+</div>
+<!-- <h1>{{loginForm.value | json}}</h1> -->
